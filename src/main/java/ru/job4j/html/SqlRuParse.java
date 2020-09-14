@@ -24,7 +24,7 @@ public class SqlRuParse implements Parse {
                 Element href = td.child(0);
                 post.setLink(href.attr("href"));
                 post.setName(href.text());
-                rsl.add(post);
+                rsl.add(detail(post));
             }
         } catch (Exception e) {
             e.printStackTrace();
