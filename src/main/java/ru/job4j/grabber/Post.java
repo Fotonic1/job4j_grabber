@@ -3,11 +3,11 @@ package ru.job4j.grabber;
 import java.time.LocalDateTime;
 
 public class Post {
-    int id;
-    LocalDateTime created;
-    String link;
-    String name;
-    String description;
+    private int id;
+    private LocalDateTime created;
+    private String link;
+    private String name;
+    private String description;
 
     public void setId(int id) {
         this.id = id;
