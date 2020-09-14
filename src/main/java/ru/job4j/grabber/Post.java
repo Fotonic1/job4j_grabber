@@ -4,9 +4,8 @@ import java.time.LocalDateTime;
 
 public class Post {
     int id;
-    LocalDateTime creationDate;
-    LocalDateTime updatingDate;
-    String href;
+    LocalDateTime created;
+    String link;
     String name;
     String description;
 
@@ -14,16 +13,12 @@ public class Post {
         this.id = id;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
-    public void setUpdatingDate(LocalDateTime updatingDate) {
-        this.updatingDate = updatingDate;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setName(String name) {
@@ -38,16 +33,12 @@ public class Post {
         return id;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public LocalDateTime getCreated() {
+        return created;
     }
 
-    public LocalDateTime getUpdatingDate() {
-        return updatingDate;
-    }
-
-    public String getHref() {
-        return href;
+    public String getLink() {
+        return link;
     }
 
     public String getName() {
