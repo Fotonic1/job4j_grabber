@@ -4,31 +4,48 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.grabber.Parse;
+import ru.job4j.grabber.Post;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class SqlRuParse {
-    public static void list() throws Exception {
-        String2Date str2d = new String2Date();
-        for (int i = 1; i <= 5; i++) {
-            Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers/" + i).get();
+public class SqlRuParse implements Parse {
+
+    @Override
+    public List<Post> list(String link) {
+        List<Post> rsl = new ArrayList<>();
+        try {
+            Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers/").get();
             Elements row = doc.select(".postslisttopic");
-            for (Element td: row) {
+            for (Element td : row) {
+                Post post = new Post();
                 Element href = td.child(0);
-                System.out.println(href.attr("href"));
-                System.out.println(href.text());
+                post.setHref(href.attr("href"));
+                post.setName(href.text());
                 Element time = td.parent().child(5);
-                System.out.println(str2d.stringToDate(time.text()));
+                post.setUpdatingDate(String2Date.stringToDate(time.text()));
+                rsl.add(post);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return rsl;
     }
 
-    public static void main(String[] args) throws Exception {
-        String2Date str2d = new String2Date();
-        String href = "https://www.sql.ru/forum/1325330/lidy-be-fe-senior-cistemnye-analitiki-qa-i-devops-moskva-do-200t";
-        Document doc = Jsoup.connect(href).get();
-        Elements row = doc.select(".msgBody");
-        System.out.println(row.next().first().text());
-        row = doc.select(".msgFooter");
-        System.out.println(str2d.stringToDate(row.first().text().split(" \\[")[0]));
+    @Override
+    public Post detail(Post post) {
+        try {
+            String href = post.getHref();
+            Document doc = Jsoup.connect(href).get();
+            Elements row = doc.select(".msgBody");
+            post.setDescription(row.next().first().text());
+            row = doc.select(".msgFooter");
+            post.setCreationDate(String2Date.stringToDate(row.first().text().split(" \\[")[0]));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return post;
     }
 }

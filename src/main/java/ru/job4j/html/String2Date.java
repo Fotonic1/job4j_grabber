@@ -1,18 +1,17 @@
 package ru.job4j.html;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class String2Date {
 
-    public Timestamp stringToDate(String s) {
+    public static LocalDateTime stringToDate(String s) {
         DateTimeFormatter form = DateTimeFormatter.ofPattern("d MM yy, HH:mm");
-        return Timestamp.valueOf(LocalDateTime.parse(changeToFormat(s), form));
+        return LocalDateTime.parse(changeToFormat(s), form);
     }
 
-    public String changeToFormat(String s) {
+    private static String changeToFormat(String s) {
         DateTimeFormatter f = DateTimeFormatter.ofPattern("d MM yy");
         if (s.contains("сегодня")) {
             s = s.replaceAll("сегодня", f.format(LocalDate.now()));
