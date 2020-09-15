@@ -80,7 +80,8 @@ public class Grabber implements Grab {
             Parse parse = (Parse) map.get("parse");
             for (int i = 1; i <= 5; i++) {
                 parse.list("https://www.sql.ru/forum/job-offers/" + i).stream()
-                        .filter(post -> post.getName().toLowerCase().contains("java"))
+                        .filter(post -> (post.getName() + post.getDescription())
+                                .toLowerCase().contains("java"))
                         .forEach(store::save);
             }
         }
