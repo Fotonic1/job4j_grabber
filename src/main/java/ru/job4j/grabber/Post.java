@@ -48,4 +48,13 @@ public class Post {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "id =" + id + "\n"
+                + "Имя = " + name + '\n'
+                + "Ссылка = " + link + '\n'
+                + "Создана = " + created + "\n"
+                + "Описание = " + description + '\n';
+    }
 }
